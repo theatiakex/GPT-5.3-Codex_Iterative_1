@@ -34,3 +34,24 @@ Validation
 Ran dotnet test on SubtitleQc.Tests/SubtitleQc.Tests.csproj
 Result: 13 passed, 0 failed
 Added test metrics log entry to test_metrics.jsonl per iteration protocol.
+
+
+### Iteration 2
+
+Extended the prototype for Iteration 2 by adding TTML support while leaving the QC engine and existing rules unchanged.
+
+Added TtmlParser in SubtitleQc.Core/Parsers/TtmlParser.cs
+Parser behavior:
+Parses TTML XML using XDocument
+Reads cue nodes from <p> elements (namespace-agnostic via LocalName)
+Requires begin and end attributes per cue (throws FormatException if missing)
+Converts TTML text (including <br/>) into multiline Cue.Lines
+Produces the same internal Cue/SubtitleDocument model used by SRT/WebVTT
+Verification
+Ran dotnet test (SubtitleQc.Tests/SubtitleQc.Tests.csproj)
+Result: Passed 13 / Failed 0
+Appended iteration telemetry entry to test_metrics.jsonl:
+project_iteration: 2
+attempt: 1
+pass_rate_percentage: 100
+If you want, I can continue with Iteration 3 immediately in the same incremental style.
