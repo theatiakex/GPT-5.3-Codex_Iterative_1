@@ -55,3 +55,24 @@ project_iteration: 2
 attempt: 1
 pass_rate_percentage: 100
 If you want, I can continue with Iteration 3 immediately in the same incremental style.
+
+
+### Iteration 3
+
+Extended the prototype for Iteration 3 on top of your existing implementation, using agents_iterative.md + iteration_3.md and aligning to the current test contract.
+
+Added shot-change provider abstraction: SubtitleQc.Core/Qc/Abstractions/IShotChangeProvider.cs
+Upgraded internal cue model for external frame-linked data:
+SubtitleQc.Core/Models/Cue.cs now supports optional startFrame
+Added shot-change rules:
+SubtitleQc.Core/Qc/Rules/CrossShotBoundaryCheckRule.cs
+SubtitleQc.Core/Qc/Rules/MinFramesFromShotChangeRule.cs
+Kept existing QC engine behavior intact for existing rules and compatibility:
+Existing RuleEngine.Evaluate(IEnumerable<Cue>) still works
+Added model extension groundwork in SubtitleQc.Core/Models/ExternalQcData.cs and SubtitleQc.Core/Models/SubtitleDocument.cs for external attributes
+Validation
+Ran dotnet test after changes.
+Final result: 19 passed, 0 failed.
+Logged all Iteration 3 test attempts in test_metrics.jsonl:
+attempt 1: build failed (missing interface before fix)
+attempt 2: build successful, 100% pass rate
